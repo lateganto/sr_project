@@ -1,0 +1,4 @@
+USERS_PROFILES_FILENAME = "files/users.json"
+GIF_DIRECTORY = "files/GIFs"
+DURATION_SCALAR = 1.0
+VECTOR_VOICE = False
