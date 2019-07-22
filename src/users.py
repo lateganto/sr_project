@@ -3,7 +3,7 @@ import string
 import time
 
 import config
-from utils import ask_question, speak, check_number
+from utils import speak, check_age, ask_question
 
 
 class User:
@@ -14,7 +14,7 @@ class User:
         self.cl_progress = cl_progress
         self.sl_progress = sl_progress
 
-    def toJson(self):
+    def to_json(self):
         data = {}
         data['name'] = str(self.name)
         data['age'] = str(self.age)
@@ -34,20 +34,20 @@ class User:
 
 
 def acquaintance(robot):
-    time.sleep(1)
     name = ask_question(robot, "What's your name?", False)
-    speak(robot, "Hy," + name + ". Nice to meet you!")
-
-    play_animation(robot, "ReactToGreeting")
+    robot.anim.play_animation_trigger("GreetAfterLongTime")
+    speak(robot, "Hy," + name + ". Nice to meet you!").result()
     time.sleep(1)
 
     age = ask_question(robot, "How old are you?", False)
-    check_number(robot, "How old are you?", age, 5, 8)
-    speak(robot, "You are" + age + "years old")
+    check_age(robot, "How old are you?", age, 5, 8)
+    speak(robot, "You are" + age + "years old").result()
+    time.sleep(1)
 
     school_grade = ask_question(robot, "What grade are you in?", False)
     while not ("first" in school_grade or "second" in school_grade or "third" in school_grade):
         school_grade = ask_question(robot, "What grade are you in?", True)
+    robot.anim.play_animation_trigger("FistBumpSuccess")
 
     letters_len = len(list(string.ascii_lowercase))
     capital_letter_results = [[] for i in range(letters_len)]

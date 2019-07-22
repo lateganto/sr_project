@@ -38,5 +38,4 @@ def detect_text(path):
                     #         symbol.text, symbol.confidence))
     return [word_text, accuracy]
 
-# if __name__ == '__main__':
-#     detect_document("2f51ce7c-23e9-40d4-aa25-4f8d0795a1f1.jpg.pagespeed.ce.TE9Xk3RqS7.jpg")
+
