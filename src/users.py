@@ -14,6 +14,7 @@ class User:
         self.cl_progress = cl_progress
         self.sl_progress = sl_progress
 
+    # Used to serialize a User in JSON format
     def to_json(self):
         data = {}
         data['name'] = str(self.name)
@@ -32,7 +33,7 @@ class User:
 
         return data
 
-
+# Method to get all information about the child if she/he is a new one
 def acquaintance(robot):
     name = ask_question(robot, "What's your name?", False)
     robot.anim.play_animation_trigger("GreetAfterLongTime")
@@ -54,7 +55,7 @@ def acquaintance(robot):
     small_letter_results = [[] for i in range(letters_len)]
     return User(name, age, school_grade, capital_letter_results, small_letter_results)
 
-
+# loads all saved users
 def load_user_profiles():
     users_list = []
     with open(config.USERS_PROFILES_FILENAME, 'r') as file:

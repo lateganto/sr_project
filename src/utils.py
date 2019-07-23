@@ -13,6 +13,7 @@ from api_google import detect_text
 import speech_recognition as sr
 
 
+# used to ask something and get a response
 def ask_question(robot, question, repeat=False, phrase_time_limit=3):
     r = sr.Recognizer()
     with sr.Microphone(chunk_size=1024) as source:
@@ -43,6 +44,7 @@ def ask_question(robot, question, repeat=False, phrase_time_limit=3):
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
 
+# Shows an animation. It needs a list of images to show sequentially
 def face_animation(robot):
     robot.anim.play_animation_trigger("VC_ListeningGetIn").result()
     robot.behavior.set_head_angle(degrees(30.0)).result()
@@ -65,14 +67,13 @@ def face_animation(robot):
     num_loops = 3
     duration_s = 0.3
 
-    # print("Press CTRL-C to quit (or wait %s seconds to complete)" % int(num_loops * duration_s * len(face_images)))
-
     for _ in range(num_loops):
         for i in range(0, len(face_images)):
             robot.screen.set_screen_with_image_data(face_images[i], duration_s)
             time.sleep(duration_s)
 
 
+# Using Google Vision API it allows to recognizes text in an image
 def see_letter(robot):
     robot.behavior.set_head_angle(degrees(30.0))
     robot.behavior.set_lift_height(0.0)
@@ -99,10 +100,12 @@ def see_letter(robot):
     return [text, accuracy]
 
 
+# Used to let Vector speak aloud the sentence it has in input
 def speak(robot, text):
     return robot.behavior.say_text(text, duration_scalar=config.DURATION_SCALAR, use_vector_voice=config.VECTOR_VOICE)
 
 
+# Serialize the user to a JSON file
 def serialize_users(users_list):
     with open(config.USERS_PROFILES_FILENAME, "w") as file:
         list_tmp = []
